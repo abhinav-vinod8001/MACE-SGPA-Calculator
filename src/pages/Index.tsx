@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calculator, GraduationCap, BookOpen } from "lucide-react";
+import { Calculator, GraduationCap, BookOpen, Zap, Building } from "lucide-react";
 import CGPACalculator from "@/components/CGPACalculator";
 
 const Index = () => {
@@ -27,6 +27,18 @@ const Index = () => {
       name: "Electrical & Electronics Engineering",
       color: "from-yellow-500 to-orange-500", 
       icon: <GraduationCap className="w-6 h-6" />
+    },
+    {
+      id: "civil",
+      name: "Civil Engineering",
+      color: "from-green-500 to-teal-500",
+      icon: <Building className="w-6 h-6" />
+    },
+    {
+      id: "ece",
+      name: "Electronics & Communication Engineering",
+      color: "from-purple-500 to-pink-500",
+      icon: <Zap className="w-6 h-6" />
     }
   ];
 
@@ -42,12 +54,12 @@ const Index = () => {
             </h1>
           </div>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Calculate your Semester Grade Point Average for CS, Mechanical, and EEE departments
+            Calculate your Semester Grade Point Average for CS, Mechanical, EEE, Civil, and ECE departments
           </p>
         </div>
 
         {!selectedDepartment ? (
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             <Card className="mb-8">
               <CardHeader className="text-center">
                 <CardTitle className="text-2xl">Select Your Department</CardTitle>
@@ -55,7 +67,7 @@ const Index = () => {
               </CardHeader>
             </Card>
             
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
               {departments.map((dept) => (
                 <Card 
                   key={dept.id}

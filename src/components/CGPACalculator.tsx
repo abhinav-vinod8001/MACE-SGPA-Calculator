@@ -57,6 +57,25 @@ const departmentCourses = {
     "Basic Civil and Mechanical Workshop (A)": 1,
     "Electronic Circuits Lab I": 2,
     "Physics and Chemistry Lab (combined)": 1
+  },
+  civil: {
+    "Ordinary Differential Equations and Transforms": 4,
+    "Engineering Physics": 3,
+    "Engineering Chemistry": 3,
+    "Basic Electrical and Mechanical Engineering": 4,
+    "Surveying & Geomatics": 3,
+    "Mechanical and Electrical Engineering Workshop": 1,
+    "Engineering Mechanics Lab": 2,
+    "Physics and Chemistry Lab (combined)": 1
+  },
+  ece: {
+    "Ordinary Differential Equations and Transforms": 4,
+    "Computer Aided Engineering Graphics": 3,
+    "Electrical Circuit Theory": 4,
+    "Logic Circuit Design": 3,
+    "Analog Circuits": 4,
+    "Basic Electronics Lab": 2,
+    "Scientific Computing Lab": 2
   }
 };
 
