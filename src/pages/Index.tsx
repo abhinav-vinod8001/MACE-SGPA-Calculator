@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calculator, GraduationCap, BookOpen, Zap, Building, User } from "lucide-react";
+import { Calculator, GraduationCap, BookOpen, Zap, Building, Code } from "lucide-react";
 import CGPACalculator from "@/components/CGPACalculator";
 
 const Index = () => {
@@ -54,14 +54,16 @@ const Index = () => {
             </h1>
           </div>
           
-          {/* Personal Information */}
-          <div className="mb-6 p-4 bg-white/80 rounded-lg shadow-sm border max-w-md mx-auto">
+          {/* Author Information */}
+          <div className="mb-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg shadow-sm border border-blue-200 max-w-md mx-auto">
             <div className="flex items-center justify-center gap-2 mb-2">
-              <User className="w-5 h-5 text-blue-600" />
-              <h2 className="text-lg font-semibold text-gray-800">Student Information</h2>
+              <Code className="w-5 h-5 text-purple-600" />
+              <h2 className="text-lg font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Created by
+              </h2>
             </div>
-            <p className="text-md font-medium text-gray-700">Name: Abhinav Vinod</p>
-            <p className="text-sm text-gray-600">Department: Computer Science And Engineering</p>
+            <p className="text-md font-bold text-gray-800">Abhinav Vinod</p>
+            <p className="text-sm text-gray-600 italic">Computer Science & Engineering</p>
           </div>
           
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
