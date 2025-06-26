@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calculator, GraduationCap, BookOpen, Zap, Building } from "lucide-react";
+import { Calculator, GraduationCap, BookOpen, Zap, Building, User } from "lucide-react";
 import CGPACalculator from "@/components/CGPACalculator";
 
 const Index = () => {
@@ -53,6 +53,17 @@ const Index = () => {
               SGPA Calculator
             </h1>
           </div>
+          
+          {/* Personal Information */}
+          <div className="mb-6 p-4 bg-white/80 rounded-lg shadow-sm border max-w-md mx-auto">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <User className="w-5 h-5 text-blue-600" />
+              <h2 className="text-lg font-semibold text-gray-800">Student Information</h2>
+            </div>
+            <p className="text-md font-medium text-gray-700">Name: Abhinav Vinod</p>
+            <p className="text-sm text-gray-600">Department: Computer Science And Engineering</p>
+          </div>
+          
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Calculate your Semester Grade Point Average for CS, Mechanical, EEE, Civil, and ECE departments
           </p>
