@@ -29,6 +29,9 @@ const gradePoints = {
 // Semester-wise courses for each department
 const departmentSemesterCourses: Record<string, Record<string, Record<string, number>>> = {
   cs: {
+    "1": {
+      "Coming Soon": 0
+    },
     "2": {
       "Ordinary Differential Equations and Transforms": 4,
       "Computer Aided Engineering Graphics": 3,
@@ -114,7 +117,7 @@ const departmentSemesterCourses: Record<string, Record<string, Record<string, nu
   }
 };
 
-const availableSemesters = ["2", "3", "4", "5", "6", "7", "8"];
+const availableSemesters = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
 const CGPACalculator = ({ department }: CGPACalculatorProps) => {
   const [semester, setSemester] = useState<string>("");
@@ -198,8 +201,8 @@ const CGPACalculator = ({ department }: CGPACalculatorProps) => {
               {availableSemesters.map((sem) => {
                 const isAvailable = departmentData?.[sem] && Object.keys(departmentData[sem]).length > 0 && !departmentData[sem]["Coming Soon"];
                 return (
-                  <SelectItem key={sem} value={sem} disabled={!isAvailable && sem !== "3" && sem !== "2"}>
-                    Semester {sem} {!isAvailable && sem !== "2" && sem !== "3" ? "(Coming Soon)" : ""}
+                  <SelectItem key={sem} value={sem} disabled={!isAvailable && !["1", "2", "3"].includes(sem)}>
+                    Semester {sem} {!isAvailable ? "(Coming Soon)" : ""}
                   </SelectItem>
                 );
               })}
