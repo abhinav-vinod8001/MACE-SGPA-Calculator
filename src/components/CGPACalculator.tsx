@@ -111,6 +111,9 @@ const departmentSemesterCourses: Record<string, Record<string, Record<string, nu
     }
   },
   civil: {
+    "1": {
+      "Coming Soon": 0
+    },
     "2": {
       "Ordinary Differential Equations and Transforms": 4,
       "Engineering Physics": 3,
@@ -122,7 +125,16 @@ const departmentSemesterCourses: Record<string, Record<string, Record<string, nu
       "Physics and Chemistry Lab (combined)": 1
     },
     "3": {
-      "Coming Soon": 0
+      "Complex Variables and Applications of PDE": 4,
+      "Mechanics of Solids": 4,
+      "Fluid Mechanics & Hydraulics": 4,
+      "Functional Planning of Buildings": 3,
+      "Entrepreneurship and Management Skills for Engineers": 3,
+      "Surveying Laboratory": 2,
+      "Hydraulics Laboratory": 2,
+      "Universal Human Value and Constitutional Rights": 0,
+      "Energy Conservation and Environmental Sustainability": 0,
+      "Minor (Optional)": 0
     }
   },
   ece: {
