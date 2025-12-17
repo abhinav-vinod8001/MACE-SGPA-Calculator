@@ -126,6 +126,9 @@ const departmentSemesterCourses: Record<string, Record<string, Record<string, nu
     }
   },
   ece: {
+    "1": {
+      "Coming Soon": 0
+    },
     "2": {
       "Ordinary Differential Equations and Transforms": 4,
       "Computer Aided Engineering Graphics": 3,
@@ -136,7 +139,16 @@ const departmentSemesterCourses: Record<string, Record<string, Record<string, nu
       "Scientific Computing Lab": 2
     },
     "3": {
-      "Coming Soon": 0
+      "Complex Variables and Applications of PDE": 4,
+      "Network Theory": 4,
+      "Computer Architecture and Microcontrollers": 4,
+      "Analog Circuits 2": 3,
+      "Business Economics and Financial Management": 3,
+      "Logic Circuit Design Lab": 2,
+      "Electronic Circuits Lab": 2,
+      "Universal Human Value and Constitutional Rights": 0,
+      "Energy Conservation and Environmental Sustainability": 0,
+      "Minor (Optional)": 0
     }
   }
 };
