@@ -72,6 +72,9 @@ const departmentSemesterCourses: Record<string, Record<string, Record<string, nu
     }
   },
   eee: {
+    "1": {
+      "Coming Soon": 0
+    },
     "2": {
       "Ordinary Differential Equations and Transforms": 4,
       "Engineering Physics (A)": 3,
@@ -83,7 +86,16 @@ const departmentSemesterCourses: Record<string, Record<string, Record<string, nu
       "Physics and Chemistry Lab (combined)": 1
     },
     "3": {
-      "Coming Soon": 0
+      "Complex Variables and Applications of PDE": 4,
+      "Circuits and Networks": 4,
+      "Electrical Machines I": 4,
+      "Digital Electronics": 3,
+      "Electronic Circuits II": 3,
+      "Electrical Measurements Lab": 2,
+      "Digital Electronics Lab": 2,
+      "Universal Human Values and Constitutional Rights": 0,
+      "Energy Conservation and Environmental Sustainability": 0,
+      "Minor (Optional)": 0
     }
   },
   civil: {
