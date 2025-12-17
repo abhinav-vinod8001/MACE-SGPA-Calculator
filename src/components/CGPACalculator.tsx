@@ -57,6 +57,9 @@ const departmentSemesterCourses: Record<string, Record<string, Record<string, nu
     }
   },
   mech: {
+    "1": {
+      "Coming Soon": 0
+    },
     "2": {
       "Ordinary Differential Equations and Transforms": 4,
       "Engineering Physics (B)": 3,
@@ -68,7 +71,16 @@ const departmentSemesterCourses: Record<string, Record<string, Record<string, nu
       "Physics & Chemistry Lab (combined)": 1
     },
     "3": {
-      "Coming Soon": 0
+      "Complex Variables and Applications of PDE": 4,
+      "Mechanics of Solids": 4,
+      "Mechanics of Fluids": 4,
+      "Metallurgy and Materials Science": 3,
+      "Entrepreneurship and Management Skills for Engineers": 3,
+      "Material Testing Lab": 2,
+      "Machine Tools Lab": 2,
+      "Universal Human Value and Constitutional Rights": 0,
+      "Energy Conservation and Environmental Sustainability": 0,
+      "Minor (Optional)": 0
     }
   },
   eee: {
