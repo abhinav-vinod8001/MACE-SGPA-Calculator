@@ -50,7 +50,7 @@ const departmentSemesterCourses: Record<string, Record<string, Record<string, nu
       "Networking Lab": 2,
       "Universal Human Value and Constitutional Rights": 0,
       "Energy Conservation and Environmental Sustainability": 0,
-      "Minor": 4
+      "Minor (Optional)": 0
     }
   },
   mech: {
