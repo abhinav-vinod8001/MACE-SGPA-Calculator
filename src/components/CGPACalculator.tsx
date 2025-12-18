@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -30,7 +30,17 @@ const gradePoints = {
 const departmentSemesterCourses: Record<string, Record<string, Record<string, number>>> = {
   cs: {
     "1": {
-      "Coming Soon": 0
+      "Linear Algebra and Multivariable Calculus": 4,
+      "Problem Solving & Programming Techniques": 3,
+      "Engineering Physics (A)": 3,
+      "Engineering Chemistry (A)": 3,
+      "Basics of Electrical & Electronics Engineering": 4,
+      "Basic Electrical and Electronics Workshop": 1,
+      "Programming Lab": 2,
+      "Engineering Physics/Chemistry Laboratory (A)": 1,
+      "Life Skills": 0,
+      "Design Thinking": 0,
+      "Yoga and Sports": 0
     },
     "2": {
       "Ordinary Differential Equations and Transforms": 4,
@@ -54,11 +64,270 @@ const departmentSemesterCourses: Record<string, Record<string, Record<string, nu
       "Universal Human Value and Constitutional Rights": 0,
       "Energy Conservation and Environmental Sustainability": 0,
       "Minor (Optional)": 0
+    },
+    "4": {
+      "Graph Theory": 4,
+      "Operating Systems": 4,
+      "Formal Languages and Automata Theory": 4,
+      "Database Management Systems": 3,
+      "Entrepreneurship and Software Management Systems": 3,
+      "System Software": 3,
+      "Logic System Design and Operating Systems Lab": 2,
+      "Database Lab": 2,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "5": {
+      "Microprocessor Systems": 4,
+      "Web Programming": 4,
+      "Compiler Design": 4,
+      "Algorithm Analysis and Design": 4,
+      "Artificial Intelligence": 3,
+      "Programme Elective I": 3,
+      "System Software and Compiler Design Lab": 2,
+      "Web Programming Lab": 2,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "6": {
+      "Security in Computing": 4,
+      "Data Analytics Systems": 4,
+      "Cloud Computing": 4,
+      "Computer Graphics and Image Processing": 4,
+      "Programme Elective II": 3,
+      "Open Elective I": 3,
+      "Microprocessor Lab": 2,
+      "Mini Project": 2,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "7": {
+      "Basics of Machine Learning": 3,
+      "Programme Elective III": 3,
+      "Programme Elective IV": 3,
+      "Open Elective II": 3,
+      "Disaster Management and Industrial Safety": 3,
+      "Computer Graphics Lab": 2,
+      "Project Phase I": 3,
+      "Seminar": 2,
+      "Viva Voce": 1,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "8": {
+      "Internship & MOOC Courses (3 Numbers)": 9,
+      "Programme Elective V": 3,
+      "Programme Elective VI": 3,
+      "Open Elective III": 3,
+      "Project Phase II": 6,
+      "Minor Project (Optional)": 0,
+      "Honors Project (Optional)": 0
+    }
+  },
+  "cs-ds": {
+    "1": {
+      "Linear Algebra and Multivariable Calculus": 4,
+      "Problem Solving & Programming Techniques": 3,
+      "Engineering Physics (A)": 3,
+      "Engineering Chemistry (A)": 3,
+      "Basics of Electrical & Electronics Engineering": 4,
+      "Basic Electrical and Electronics Workshop": 1,
+      "Programming Lab": 2,
+      "Engineering Physics/Chemistry Laboratory (A)": 1,
+      "Life Skills": 0,
+      "Design Thinking": 0,
+      "Yoga and Sports": 0
+    },
+    "2": {
+      "Ordinary Differential Equations and Transforms": 4,
+      "Computer Aided Engineering Graphics": 3,
+      "Logic System Design": 4,
+      "Industrial Programming": 3,
+      "Object Oriented Programming": 4,
+      "Industrial Programming Lab": 2,
+      "Object Oriented Programming Lab": 2,
+      "Professional Communication & Ethics": 0,
+      "IDEA Lab": 0
+    },
+    "3": {
+      "Discrete Mathematics": 4,
+      "Data Structures": 4,
+      "Computer Organization and Architecture": 4,
+      "Computer Networks": 3,
+      "Business Economics and Financial Management": 3,
+      "Data Structures Lab": 2,
+      "Networking Lab": 2,
+      "Universal Human Value and Constitutional Rights": 0,
+      "Energy Conservation and Environmental Sustainability": 0,
+      "Minor (Optional)": 0
+    },
+    "4": {
+      "Graph Theory": 4,
+      "Operating Systems": 4,
+      "Formal Languages and Automata Theory": 4,
+      "Database Management Systems": 3,
+      "Entrepreneurship and Software Management Systems": 3,
+      "Machine Learning Concepts": 3,
+      "Logic System Design and Operating Systems Lab": 2,
+      "Database Lab": 2,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "5": {
+      "Data Analytics": 4,
+      "Web Programming": 4,
+      "Compiler Design": 4,
+      "Algorithm Analysis and Design": 4,
+      "Artificial Intelligence": 3,
+      "Programme Elective I": 3,
+      "Data Analytics Lab": 2,
+      "Web Programming Lab": 2,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "6": {
+      "Data Mining": 4,
+      "Basics of Big Data Processing": 4,
+      "Cloud Computing": 4,
+      "Computer Graphics and Image Processing": 4,
+      "Programme Elective II": 3,
+      "Open Elective I": 3,
+      "Big Data Processing Lab": 2,
+      "Mini Project": 2,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "7": {
+      "Deep Learning Techniques": 3,
+      "Programme Elective III": 3,
+      "Programme Elective IV": 3,
+      "Open Elective II": 3,
+      "Disaster Management and Industrial Safety": 3,
+      "Machine Learning Lab": 2,
+      "Project Phase I": 3,
+      "Seminar": 2,
+      "Viva Voce": 1,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "8": {
+      "Internship & MOOC Courses (3 Numbers)": 9,
+      "Programme Elective V": 3,
+      "Programme Elective VI": 3,
+      "Open Elective III": 3,
+      "Project Phase II": 6,
+      "Minor Project (Optional)": 0,
+      "Honors Project (Optional)": 0
+    }
+  },
+  "ai-ml": {
+    "1": {
+      "Linear Algebra and Multivariable Calculus": 4,
+      "Problem Solving & Programming Techniques": 3,
+      "Engineering Physics (A)": 3,
+      "Engineering Chemistry (A)": 3,
+      "Basics of Electrical & Electronics Engineering": 4,
+      "Basic Electrical and Electronics Workshop": 1,
+      "Programming Lab": 2,
+      "Engineering Physics/Chemistry Laboratory (A)": 1,
+      "Life Skills": 0,
+      "Design Thinking": 0,
+      "Yoga and Sports": 0
+    },
+    "2": {
+      "Ordinary Differential Equations and Transforms": 4,
+      "Computer Aided Engineering Graphics": 3,
+      "Logic System Design": 4,
+      "Industrial Programming": 3,
+      "Object Oriented Programming": 4,
+      "Industrial Programming Lab": 2,
+      "Object Oriented Programming Lab": 2,
+      "Professional Communication & Ethics": 0,
+      "IDEA Lab": 0
+    },
+    "3": {
+      "Discrete Mathematics": 4,
+      "Data Structures": 4,
+      "Computer Organization and Architecture": 4,
+      "Computer Networks": 3,
+      "Business Economics and Financial Management": 3,
+      "Data Structures Lab": 2,
+      "Networking Lab": 2,
+      "Universal Human Value and Constitutional Rights": 0,
+      "Energy Conservation and Environmental Sustainability": 0,
+      "Minor (Optional)": 0
+    },
+    "4": {
+      "Graph Theory": 4,
+      "Operating Systems": 4,
+      "Formal Languages and Automata Theory": 4,
+      "Database Management Systems": 3,
+      "Entrepreneurship and Software Management Systems": 3,
+      "Machine Learning Concepts": 3,
+      "Logic System Design and Operating Systems Lab": 2,
+      "Database Lab": 2,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "5": {
+      "Data Analytics": 4,
+      "Big Data Processing": 4,
+      "Compiler Design": 4,
+      "Algorithm Analysis and Design": 4,
+      "Artificial Intelligence": 3,
+      "Programme Elective I": 3,
+      "Data Analytics Lab": 2,
+      "Machine Learning Lab": 2,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "6": {
+      "Data Mining": 4,
+      "Concepts of Natural Language Processing": 4,
+      "Data Handling and Visualization": 4,
+      "Robotics and Intelligence Systems": 4,
+      "Programme Elective II": 3,
+      "Open Elective I": 3,
+      "Artificial Intelligence Lab": 2,
+      "Mini Project": 2,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "7": {
+      "Deep Learning Techniques": 3,
+      "Programme Elective III": 3,
+      "Programme Elective IV": 3,
+      "Open Elective II": 3,
+      "Disaster Management and Industrial Safety": 3,
+      "Natural Language Processing Lab": 2,
+      "Project Phase I": 3,
+      "Seminar": 2,
+      "Viva Voce": 1,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "8": {
+      "Internship & MOOC Courses (3 Numbers)": 9,
+      "Programme Elective V": 3,
+      "Programme Elective VI": 3,
+      "Open Elective III": 3,
+      "Project Phase II": 6,
+      "Minor Project (Optional)": 0,
+      "Honors Project (Optional)": 0
     }
   },
   mech: {
     "1": {
-      "Coming Soon": 0
+      "Linear Algebra and Multivariable Calculus": 4,
+      "Problem Solving and Programming Techniques (B)": 3,
+      "Fundamentals of Electrical Engineering": 3,
+      "Basic Civil and Mechanical Engineering (B)": 4,
+      "Engineering Graphics": 4,
+      "Basic Civil and Mechanical Workshop (B)": 1,
+      "Programming Laboratory (B)": 2,
+      "Life Skills": 0,
+      "Design Thinking": 0,
+      "Yoga and Sports": 0
     },
     "2": {
       "Ordinary Differential Equations and Transforms": 4,
@@ -81,11 +350,78 @@ const departmentSemesterCourses: Record<string, Record<string, Record<string, nu
       "Universal Human Value and Constitutional Rights": 0,
       "Energy Conservation and Environmental Sustainability": 0,
       "Minor (Optional)": 0
+    },
+    "4": {
+      "Statistical Analysis and Numerical Methods": 4,
+      "Theory of Machines": 4,
+      "Metrology and Machine Tools": 3,
+      "Engineering Thermodynamics": 4,
+      "Business Economics and Financial Management": 3,
+      "Fluid Machines": 3,
+      "Mechanical Measurements Lab": 2,
+      "Fluid Mechanics and Machines Lab": 2,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "5": {
+      "Dynamics and Design of Machines": 4,
+      "Thermal Power Engineering": 4,
+      "Manufacturing Technology": 4,
+      "Robotics and Automation": 4,
+      "Industrial and Systems Engineering": 3,
+      "Programme Elective I": 3,
+      "Robotics and Automation Lab": 2,
+      "Thermal Power Lab": 2,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "6": {
+      "Design of Machine Elements": 4,
+      "Heat and Mass Transfer": 4,
+      "Finite Element Methods": 4,
+      "Advanced Automotive Systems": 4,
+      "Programme Elective II": 3,
+      "Open Elective I": 3,
+      "Thermal Systems Lab": 2,
+      "Computer Aided Design and Analysis Lab": 2,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "7": {
+      "Project Management": 3,
+      "Programme Elective III": 3,
+      "Programme Elective IV": 3,
+      "Open Elective II": 3,
+      "Disaster Management and Industrial Safety": 3,
+      "Advanced Mechanical Engineering Lab": 2,
+      "Project Phase I": 3,
+      "Seminar": 2,
+      "Viva Voce": 1,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "8": {
+      "Internship & MOOC Courses (3 Numbers)": 9,
+      "Programme Elective V": 3,
+      "Programme Elective VI": 3,
+      "Open Elective III": 3,
+      "Project Phase II": 6,
+      "Minor Project (Optional)": 0,
+      "Honors Project (Optional)": 0
     }
   },
   eee: {
     "1": {
-      "Coming Soon": 0
+      "Linear Algebra and Multivariable Calculus": 4,
+      "Problem Solving and Programming Techniques (A)": 3,
+      "Introduction to Electrical Engineering": 4,
+      "Electronic Circuits I": 3,
+      "Computer Aided Engineering Graphics (B)": 4,
+      "Programming Lab (A)": 2,
+      "Basic Electrical Engineering Lab": 2,
+      "Life Skills": 0,
+      "Design Thinking": 0,
+      "Yoga and Sports": 0
     },
     "2": {
       "Ordinary Differential Equations and Transforms": 4,
@@ -108,11 +444,78 @@ const departmentSemesterCourses: Record<string, Record<string, Record<string, nu
       "Universal Human Values and Constitutional Rights": 0,
       "Energy Conservation and Environmental Sustainability": 0,
       "Minor (Optional)": 0
+    },
+    "4": {
+      "Stochastic Processes and Numerical Methods": 4,
+      "Signals and Systems": 3,
+      "Power Electronics": 4,
+      "Electromagnetic Theory": 3,
+      "Business Economics and Financial Management": 3,
+      "Microprocessors and Microcontrollers": 4,
+      "Electrical Machines Lab I": 2,
+      "Electronic Circuits Lab II": 2,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "5": {
+      "Linear Control System": 4,
+      "Power System I": 4,
+      "Electrical Machines II": 4,
+      "Instrumentation Systems": 4,
+      "Entrepreneurship Development and Management Strategies": 3,
+      "Programme Elective I": 3,
+      "Microprocessor and Microcontroller Lab": 2,
+      "Power Electronics Lab": 2,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "6": {
+      "Advanced Control System": 4,
+      "Electric Drives and Control": 4,
+      "Power System II": 4,
+      "Object-Oriented Programming": 4,
+      "Programme Elective II": 3,
+      "Open Elective I": 3,
+      "Electrical Machines Lab II": 2,
+      "Control System Lab": 2,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "7": {
+      "Electrical System Design and Estimation": 3,
+      "Programme Elective III": 3,
+      "Programme Elective IV": 3,
+      "Open Elective II": 3,
+      "Disaster Management and Industrial Safety": 3,
+      "Power System Lab": 2,
+      "Project Phase I": 3,
+      "Seminar": 2,
+      "Viva Voce": 1,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "8": {
+      "Internship & MOOC Courses (3 Numbers)": 9,
+      "Programme Elective V": 3,
+      "Programme Elective VI": 3,
+      "Open Elective III": 3,
+      "Project Phase II": 6,
+      "Minor Project (Optional)": 0,
+      "Honors Project (Optional)": 0
     }
   },
   civil: {
     "1": {
-      "Coming Soon": 0
+      "Linear Algebra and Multi Variable Calculus": 4,
+      "Problem Solving and Programming Techniques": 3,
+      "Introduction to Civil Engineering": 3,
+      "Engineering Mechanics": 4,
+      "Graphics for Civil Engineers": 4,
+      "Programming Lab": 2,
+      "Civil Engineering Lab": 2,
+      "Life Skills": 0,
+      "Design Thinking": 0,
+      "Yoga and Sports": 0
     },
     "2": {
       "Ordinary Differential Equations and Transforms": 4,
@@ -135,11 +538,80 @@ const departmentSemesterCourses: Record<string, Record<string, Record<string, nu
       "Universal Human Value and Constitutional Rights": 0,
       "Energy Conservation and Environmental Sustainability": 0,
       "Minor (Optional)": 0
+    },
+    "4": {
+      "Statistical Analysis and Numerical Methods": 4,
+      "Structural Analysis": 4,
+      "Soil Mechanics": 4,
+      "Highway and Pavement Engineering": 3,
+      "Business Economics and Financial Management": 3,
+      "Construction Technology & Management": 3,
+      "Material Testing Laboratory - I": 2,
+      "Civil Engineering Drafting Lab": 2,
+      "Minor (Optional)": 0,
+      "Honours (Optional)": 0
+    },
+    "5": {
+      "Design of Concrete Structures": 4,
+      "Advanced Analysis of Structures": 4,
+      "Water Resources Engineering": 4,
+      "Concrete Technology": 3,
+      "Environmental Engineering": 4,
+      "Program Elective I": 3,
+      "Soil Mechanics Laboratory": 2,
+      "Transportation Engineering Laboratory": 2,
+      "Minor (Optional)": 0,
+      "Honours (Optional)": 0
+    },
+    "6": {
+      "Design of Steel Structures": 4,
+      "Water and Waste Water Management": 4,
+      "Quantity Surveying and Valuation": 4,
+      "Foundation Engineering": 4,
+      "Program Elective II": 3,
+      "Open Elective I": 3,
+      "Material Testing Laboratory - II": 2,
+      "Civil Engineering Design Studio": 2,
+      "Minor (Optional)": 0,
+      "Honours (Optional)": 0
+    },
+    "7": {
+      "Transport Infrastructure Engineering": 3,
+      "Program Elective III": 3,
+      "Program Elective IV": 3,
+      "Open Elective II": 3,
+      "Disaster Management and Industrial Safety": 3,
+      "Environmental Engineering Laboratory": 2,
+      "Project Phase I": 3,
+      "Seminar": 2,
+      "Viva-Voce": 1,
+      "Minor (Optional)": 0,
+      "Honours (Optional)": 0
+    },
+    "8": {
+      "Internship & MOOC Courses (3 Numbers)": 9,
+      "Program Elective V": 3,
+      "Program Elective VI": 3,
+      "Open Elective III": 3,
+      "Project Phase II": 6,
+      "Minor Project (Optional)": 0,
+      "Honours Project (Optional)": 0
     }
   },
   ece: {
     "1": {
-      "Coming Soon": 0
+      "Linear Algebra and Multi Variable Calculus": 4,
+      "Problem Solving and Programming Techniques": 3,
+      "Engineering Physics": 3,
+      "Engineering Chemistry": 3,
+      "Basics of Electrical & Electronics Engineering": 4,
+      "Basic Electrical and Electronics Workshop": 1,
+      "Programming Lab": 2,
+      "Engineering Physics Laboratory": 1,
+      "Engineering Chemistry Laboratory": 1,
+      "Life Skills": 0,
+      "Design Thinking": 0,
+      "Yoga and Sports": 0
     },
     "2": {
       "Ordinary Differential Equations and Transforms": 4,
@@ -161,26 +633,93 @@ const departmentSemesterCourses: Record<string, Record<string, Record<string, nu
       "Universal Human Value and Constitutional Rights": 0,
       "Energy Conservation and Environmental Sustainability": 0,
       "Minor (Optional)": 0
+    },
+    "4": {
+      "Stochastic Processes and Numerical Methods": 4,
+      "Solid State Devices": 4,
+      "Signals and Systems": 4,
+      "Linear Integrated Circuits": 3,
+      "Entrepreneurship and Management Skills for Engineers": 3,
+      "FPGA Based System Design": 3,
+      "Microcontroller Lab": 2,
+      "HDL Lab": 2,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "5": {
+      "Digital Signal Processing": 4,
+      "Control Systems": 4,
+      "Analog and Digital Communication": 4,
+      "VLSI Design": 4,
+      "Embedded Systems": 3,
+      "Programme Elective I": 3,
+      "Linear Integrated Circuits Lab": 2,
+      "Control Systems Lab": 2,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "6": {
+      "Electromagnetic Theory": 4,
+      "Machine Learning": 4,
+      "Power Electronics": 4,
+      "Wireless Communication": 4,
+      "Programme Elective II": 3,
+      "Open Elective I": 3,
+      "Digital Signal Processing Lab": 2,
+      "Mini Project": 2,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "7": {
+      "Information Theory and Coding": 3,
+      "Programme Elective III": 3,
+      "Programme Elective IV": 3,
+      "Open Elective II": 3,
+      "Disaster Management and Industrial Safety": 3,
+      "Communication Lab": 2,
+      "Project Phase I": 3,
+      "Seminar": 2,
+      "Viva Voce": 1,
+      "Minor (Optional)": 0,
+      "Honors (Optional)": 0
+    },
+    "8": {
+      "Internship & MOOC Courses (3 Numbers)": 9,
+      "Programme Elective V": 3,
+      "Programme Elective VI": 3,
+      "Open Elective III": 3,
+      "Project Phase 2": 6,
+      "Minor Project (Optional)": 0,
+      "Honors Project (Optional)": 0
     }
   }
 };
 
 const availableSemesters = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
+
 const CGPACalculator = ({ department }: CGPACalculatorProps) => {
   const [semester, setSemester] = useState<string>("");
   const [grades, setGrades] = useState<Record<string, string>>({});
   const [calculatedSGPA, setCalculatedSGPA] = useState<number | null>(null);
-  
+
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (calculatedSGPA !== null && resultRef.current) {
+      resultRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [calculatedSGPA]);
+
   const departmentData = departmentSemesterCourses[department as keyof typeof departmentSemesterCourses];
   const courses = semester && departmentData?.[semester] ? departmentData[semester] : null;
-  
+
   const handleSemesterChange = (newSemester: string) => {
     setSemester(newSemester);
     setGrades({});
     setCalculatedSGPA(null);
   };
-  
+
   const handleGradeChange = (course: string, grade: string) => {
     setGrades(prev => ({
       ...prev,
@@ -190,7 +729,7 @@ const CGPACalculator = ({ department }: CGPACalculatorProps) => {
 
   const calculateSGPA = () => {
     if (!courses) return;
-    
+
     let totalCredits = 0;
     let totalWeightedPoints = 0;
 
@@ -283,8 +822,8 @@ const CGPACalculator = ({ department }: CGPACalculatorProps) => {
                       </Badge>
                     </div>
                   </div>
-                  <Select 
-                    value={grades[course] || ""} 
+                  <Select
+                    value={grades[course] || ""}
                     onValueChange={(value) => handleGradeChange(course, value)}
                   >
                     <SelectTrigger className="w-full sm:w-32">
@@ -301,9 +840,9 @@ const CGPACalculator = ({ department }: CGPACalculatorProps) => {
                 </div>
               ))}
             </div>
-            
+
             <div className="mt-6">
-              <Button 
+              <Button
                 onClick={calculateSGPA}
                 disabled={!allGradesEntered}
                 className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
@@ -328,45 +867,48 @@ const CGPACalculator = ({ department }: CGPACalculatorProps) => {
       )}
 
       {calculatedSGPA !== null && courses && (
-        <Card className="border-2 border-blue-200">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-blue-700">
-              <Award className="w-5 h-5" />
-              Your SGPA Result - Semester {semester}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-center mb-6">
-              <div className={`inline-flex items-center justify-center w-32 h-32 rounded-full bg-gradient-to-r ${getSGPAColor(calculatedSGPA)} text-white shadow-lg mb-4`}>
-                <span className="text-3xl font-bold">{calculatedSGPA.toFixed(2)}</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-2">
-                Grade: {getSGPAGrade(calculatedSGPA)}
-              </h3>
-              <p className="text-gray-600">
-                Total Credits: {totalCredits} (Graded: {Object.entries(courses).filter(([_, c]) => c > 0).reduce((sum, [_, c]) => sum + c, 0)})
-              </p>
-            </div>
+        <div ref={resultRef} className="scroll-mt-6">
+          <Card className="border-2 border-blue-200">
 
-            <div className="space-y-3">
-              <h4 className="font-semibold text-gray-800 mb-3">Grade Summary:</h4>
-              {Object.entries(courses).map(([course, credit]) => {
-                const grade = grades[course];
-                return (
-                  <div key={course} className="flex justify-between items-center py-2 px-3 bg-gray-50 rounded">
-                    <span className="text-sm text-gray-700">{course}</span>
-                    <div className="flex items-center gap-2">
-                      <Badge variant="outline">{grade}</Badge>
-                      <span className="text-xs text-gray-500">
-                        {credit === 0 ? "P/F" : `${credit}cr`}
-                      </span>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-blue-700">
+                <Award className="w-5 h-5" />
+                Your SGPA Result - Semester {semester}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-center mb-6">
+                <div className={`inline-flex items-center justify-center w-32 h-32 rounded-full bg-gradient-to-r ${getSGPAColor(calculatedSGPA)} text-white shadow-lg mb-4`}>
+                  <span className="text-3xl font-bold">{calculatedSGPA.toFixed(2)}</span>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-800 mb-2">
+                  Grade: {getSGPAGrade(calculatedSGPA)}
+                </h3>
+                <p className="text-gray-600">
+                  Total Credits: {totalCredits} (Graded: {Object.entries(courses).filter(([_, c]) => c > 0).reduce((sum, [_, c]) => sum + c, 0)})
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                <h4 className="font-semibold text-gray-800 mb-3">Grade Summary:</h4>
+                {Object.entries(courses).map(([course, credit]) => {
+                  const grade = grades[course];
+                  return (
+                    <div key={course} className="flex justify-between items-center py-2 px-3 bg-gray-50 rounded">
+                      <span className="text-sm text-gray-700">{course}</span>
+                      <div className="flex items-center gap-2">
+                        <Badge variant="outline">{grade}</Badge>
+                        <span className="text-xs text-gray-500">
+                          {credit === 0 ? "P/F" : `${credit}cr`}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
-          </CardContent>
-        </Card>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       )}
     </div>
   );

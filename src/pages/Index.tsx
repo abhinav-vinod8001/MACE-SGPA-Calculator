@@ -8,6 +8,7 @@ import CGPACalculator from "@/components/CGPACalculator";
 
 const Index = () => {
   const [selectedDepartment, setSelectedDepartment] = useState<string>("");
+  const [viewingCsSubMenu, setViewingCsSubMenu] = useState<boolean>(false);
 
   const departments = [
     {
@@ -18,14 +19,14 @@ const Index = () => {
     },
     {
       id: "mech",
-      name: "Mechanical Engineering", 
+      name: "Mechanical Engineering",
       color: "from-orange-500 to-red-500",
       icon: <BookOpen className="w-6 h-6" />
     },
     {
       id: "eee",
       name: "Electrical & Electronics Engineering",
-      color: "from-yellow-500 to-orange-500", 
+      color: "from-yellow-500 to-orange-500",
       icon: <GraduationCap className="w-6 h-6" />
     },
     {
@@ -42,6 +43,47 @@ const Index = () => {
     }
   ];
 
+  const csSubOptions = [
+    {
+      id: "cs",
+      name: "CSE",
+      color: "from-blue-500 to-cyan-500",
+      icon: <Code className="w-6 h-6" />
+    },
+    {
+      id: "cs-ds",
+      name: "CSE (Data Science)",
+      color: "from-indigo-500 to-blue-500",
+      icon: <Zap className="w-6 h-6" /> // Using Zap for now, could be improved
+    },
+    {
+      id: "ai-ml",
+      name: "AI & ML",
+      color: "from-violet-500 to-purple-500",
+      icon: <Calculator className="w-6 h-6" /> // Using Calculator for now
+    }
+  ];
+
+  const handleDepartmentClick = (deptId: string) => {
+    if (deptId === "cs") {
+      setViewingCsSubMenu(true);
+    } else {
+      setSelectedDepartment(deptId);
+    }
+  };
+
+  const getDepartmentName = (id: string) => {
+    // Check main departments
+    const mainDept = departments.find(d => d.id === id);
+    if (mainDept) return mainDept.name;
+
+    // Check CS sub-options
+    const subOption = csSubOptions.find(d => d.id === id);
+    if (subOption) return subOption.name;
+
+    return "";
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       <div className="container mx-auto px-4 py-8">
@@ -53,7 +95,7 @@ const Index = () => {
               SGPA Calculator
             </h1>
           </div>
-          
+
           {/* Author Information */}
           <div className="mb-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg shadow-sm border border-blue-200 max-w-md mx-auto">
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -65,13 +107,19 @@ const Index = () => {
             <p className="text-md font-bold text-gray-800">Abhinav Vinod</p>
             <p className="text-sm text-gray-600 italic">Computer Science & Engineering</p>
           </div>
-          
+
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Calculate your Semester Grade Point Average for CS, Mechanical, EEE, Civil, and ECE departments
           </p>
+          <div className="mt-4 inline-block bg-yellow-100 border border-yellow-200 rounded-full px-4 py-1">
+            <p className="text-sm font-medium text-yellow-800 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></span>
+              This is based on 2024 Scheme
+            </p>
+          </div>
         </div>
 
-        {!selectedDepartment ? (
+        {!selectedDepartment && !viewingCsSubMenu ? (
           <div className="max-w-6xl mx-auto">
             <Card className="mb-8">
               <CardHeader className="text-center">
@@ -79,13 +127,13 @@ const Index = () => {
                 <CardDescription>Choose your department to get started with SGPA calculation</CardDescription>
               </CardHeader>
             </Card>
-            
+
             <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
               {departments.map((dept) => (
-                <Card 
+                <Card
                   key={dept.id}
                   className="group cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border-2 hover:border-transparent"
-                  onClick={() => setSelectedDepartment(dept.id)}
+                  onClick={() => handleDepartmentClick(dept.id)}
                 >
                   <CardContent className="p-8 text-center">
                     <div className={`w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-r ${dept.color} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}>
@@ -94,8 +142,54 @@ const Index = () => {
                     <h3 className="text-xl font-semibold mb-3 group-hover:text-blue-600 transition-colors">
                       {dept.name}
                     </h3>
-                    <Button 
+                    <Button
                       className={`w-full bg-gradient-to-r ${dept.color} hover:shadow-lg transition-all duration-300`}
+                    >
+                      {dept.id === 'cs' ? 'Select Stream' : 'Calculate SGPA'}
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        ) : viewingCsSubMenu ? (
+          <div className="max-w-6xl mx-auto">
+            <div className="mb-6">
+              <Button
+                variant="outline"
+                onClick={() => setViewingCsSubMenu(false)}
+                className="hover:bg-blue-50"
+              >
+                ← Back to Departments
+              </Button>
+            </div>
+
+            <Card className="mb-8">
+              <CardHeader className="text-center">
+                <CardTitle className="text-2xl">Select CSE Stream</CardTitle>
+                <CardDescription>Choose your specialization</CardDescription>
+              </CardHeader>
+            </Card>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {csSubOptions.map((option) => (
+                <Card
+                  key={option.id}
+                  className="group cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border-2 hover:border-transparent"
+                  onClick={() => {
+                    setSelectedDepartment(option.id);
+                    setViewingCsSubMenu(false);
+                  }}
+                >
+                  <CardContent className="p-8 text-center">
+                    <div className={`w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-r ${option.color} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                      {option.icon}
+                    </div>
+                    <h3 className="text-xl font-semibold mb-3 group-hover:text-blue-600 transition-colors">
+                      {option.name}
+                    </h3>
+                    <Button
+                      className={`w-full bg-gradient-to-r ${option.color} hover:shadow-lg transition-all duration-300`}
                     >
                       Calculate SGPA
                     </Button>
@@ -108,9 +202,9 @@ const Index = () => {
           <div className="max-w-4xl mx-auto">
             <div className="mb-6 flex items-center justify-between">
               <h2 className="text-2xl font-bold text-gray-800">
-                {departments.find(d => d.id === selectedDepartment)?.name} - Semester 2
+                {getDepartmentName(selectedDepartment)}
               </h2>
-              <Button 
+              <Button
                 variant="outline"
                 onClick={() => setSelectedDepartment("")}
                 className="hover:bg-blue-50"
@@ -122,7 +216,7 @@ const Index = () => {
           </div>
         )}
       </div>
-    </div>
+    </div >
   );
 };
 
